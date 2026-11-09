@@ -1,0 +1,16 @@
+{
+  "python": "3.13.16",
+  "platform": "Linux-6.6.159+-x86_64-with-glibc2.39",
+  "torch": "2.14.1+cu130",
+  "cuda_available": true,
+  "cuda": "13.0",
+  "cudnn": 92800,
+  "cpu_count": 2,
+  "torchvision": "0.29.1+cu130",
+  "pytorchvideo": "0.1.5",
+  "gpus": [
+    "Tesla T4"
+  ],
+  "gpu_memory_gb": 15.6,
+  "ffmpeg": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers"
+}

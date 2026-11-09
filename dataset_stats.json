@@ -1,0 +1,91 @@
+{
+  "num_videos": 1980,
+  "num_classes": 12,
+  "num_players": 55,
+  "split_mode": "stratified",
+  "split_counts": {
+    "train": 1386,
+    "val": 396,
+    "test": 198
+  },
+  "per_class": {
+    "backhand": 165,
+    "backhand2hands": 165,
+    "backhand_slice": 165,
+    "backhand_volley": 165,
+    "flat_service": 165,
+    "forehand_flat": 165,
+    "forehand_openstands": 165,
+    "forehand_slice": 165,
+    "forehand_volley": 165,
+    "kick_service": 165,
+    "slice_service": 165,
+    "smash": 165
+  },
+  "per_class_per_split": {
+    "test": {
+      "backhand": 17,
+      "backhand2hands": 17,
+      "backhand_slice": 16,
+      "backhand_volley": 17,
+      "flat_service": 16,
+      "forehand_flat": 17,
+      "forehand_openstands": 16,
+      "forehand_slice": 17,
+      "forehand_volley": 16,
+      "kick_service": 17,
+      "slice_service": 16,
+      "smash": 16
+    },
+    "train": {
+      "backhand": 115,
+      "backhand2hands": 115,
+      "backhand_slice": 116,
+      "backhand_volley": 115,
+      "flat_service": 116,
+      "forehand_flat": 115,
+      "forehand_openstands": 116,
+      "forehand_slice": 115,
+      "forehand_volley": 116,
+      "kick_service": 115,
+      "slice_service": 116,
+      "smash": 116
+    },
+    "val": {
+      "backhand": 33,
+      "backhand2hands": 33,
+      "backhand_slice": 33,
+      "backhand_volley": 33,
+      "flat_service": 33,
+      "forehand_flat": 33,
+      "forehand_openstands": 33,
+      "forehand_slice": 33,
+      "forehand_volley": 33,
+      "kick_service": 33,
+      "slice_service": 33,
+      "smash": 33
+    }
+  },
+  "frames": {
+    "count": 1980.0,
+    "mean": 73.60252525252525,
+    "std": 15.252600857973743,
+    "min": 24.0,
+    "25%": 64.0,
+    "50%": 73.0,
+    "75%": 83.0,
+    "max": 150.0
+  },
+  "short_videos_lt_64_frames": 488,
+  "fps_values": {
+    "18.0": 1569,
+    "17.0": 297,
+    "19.0": 93,
+    "16.0": 9,
+    "10.0": 6,
+    "8.0": 6
+  },
+  "resolutions": {
+    "640x480": 1980
+  }
+}

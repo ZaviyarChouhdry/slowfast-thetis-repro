@@ -1,0 +1,18 @@
+                     precision    recall  f1-score   support
+
+           backhand     0.1429    0.0588    0.0833        17
+     backhand2hands     0.0455    0.0588    0.0513        17
+     backhand_slice     0.0000    0.0000    0.0000        16
+    backhand_volley     0.1746    0.6471    0.2750        17
+       flat_service     0.1250    0.2500    0.1667        16
+      forehand_flat     0.0000    0.0000    0.0000        17
+forehand_openstands     0.1176    0.1250    0.1212        16
+     forehand_slice     0.0000    0.0000    0.0000        17
+    forehand_volley     0.1875    0.3750    0.2500        16
+       kick_service     0.0000    0.0000    0.0000        17
+      slice_service     0.0000    0.0000    0.0000        16
+              smash     0.1000    0.0625    0.0769        16
+
+           accuracy                         0.1313       198
+          macro avg     0.0744    0.1314    0.0854       198
+       weighted avg     0.0740    0.1313    0.0848       198

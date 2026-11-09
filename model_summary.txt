@@ -1,0 +1,324 @@
+Net(
+  (blocks): ModuleList(
+    (0): MultiPathWayWithFuse(
+      (multipathway_blocks): ModuleList(
+        (0): ResNetBasicStem(
+          (conv): Conv3d(3, 64, kernel_size=(1, 7, 7), stride=(1, 2, 2), padding=(0, 3, 3), bias=False)
+          (norm): BatchNorm3d(64, eps=1e-05, momentum=0.1, affine=True, bias=True, track_running_stats=True)
+          (activation): ReLU()
+          (pool): MaxPool3d(kernel_size=(1, 3, 3), stride=(1, 2, 2), padding=[0, 1, 1], dilation=1, ceil_mode=False)
+        )
+        (1): ResNetBasicStem(
+          (conv): Conv3d(3, 8, kernel_size=(5, 7, 7), stride=(1, 2, 2), padding=(2, 3, 3), bias=False)
+          (norm): BatchNorm3d(8, eps=1e-05, momentum=0.1, affine=True, bias=True, track_running_stats=True)
+          (activation): ReLU()
+          (pool): MaxPool3d(kernel_size=(1, 3, 3), stride=(1, 2, 2), padding=[0, 1, 1], dilation=1, ceil_mode=False)
+        )
+      )
+      (multipathway_fusion): FuseFastToSlow(
+        (conv_fast_to_slow): Conv3d(8, 16, kernel_size=(5, 1, 1), stride=(8, 1, 1), padding=(2, 0, 0), bias=False)
+        (norm): BatchNorm3d(16, eps=1e-05, momentum=0.1, affine=True, bias=True, track_running_stats=True)
+        (activation): ReLU()
+      )
+    )
+    (1): MultiPathWayWithFuse(
+      (multipathway_blocks): ModuleList(
+        (0): ResStage(
+          (res_blocks): ModuleList(
+            (0): ResBlock(
+              (branch1_conv): Conv3d(80, 256, kernel_size=(1, 1, 1), stride=(np.int64(1), np.int64(1), np.int64(1)), bias=False)
+              (branch1_norm): BatchNorm3d(256, eps=1e-05, momentum=0.1, affine=True, bias=True, track_running_stats=True)
+              (branch2): BottleneckBlock(
+                (conv_a): Conv3d(80, 64, kernel_size=(1, 1, 1), stride=(1, 1, 1), bias=False)
+                (norm_a): BatchNorm3d(64, eps=1e-05, momentum=0.1, affine=True, bias=True, track_running_stats=True)
+                (act_a): ReLU()
+                (conv_b): Conv3d(64, 64, kernel_size=(1, 3, 3), stride=(1, 1, 1), padding=(0, 1, 1), bias=False)
+                (norm_b): BatchNorm3d(64, eps=1e-05, momentum=0.1, affine=True, bias=True, track_running_stats=True)
+                (act_b): ReLU()
+                (conv_c): Conv3d(64, 256, kernel_size=(1, 1, 1), stride=(1, 1, 1), bias=False)
+                (norm_c): BatchNorm3d(256, eps=1e-05, momentum=0.1, affine=True, bias=True, track_running_stats=True)
+              )
+              (activation): ReLU()
+            )
+            (1-2): 2 x ResBlock(
+              (branch2): BottleneckBlock(
+                (conv_a): Conv3d(256, 64, kernel_size=(1, 1, 1), stride=(1, 1, 1), bias=False)
+                (norm_a): BatchNorm3d(64, eps=1e-05, momentum=0.1, affine=True, bias=True, track_running_stats=True)
+                (act_a): ReLU()
+                (conv_b): Conv3d(64, 64, kernel_size=(1, 3, 3), stride=(1, 1, 1), padding=(0, 1, 1), bias=False)
+                (norm_b): BatchNorm3d(64, eps=1e-05, momentum=0.1, affine=True, bias=True, track_running_stats=True)
+                (act_b): ReLU()
+                (conv_c): Conv3d(64, 256, kernel_size=(1, 1, 1), stride=(1, 1, 1), bias=False)
+                (norm_c): BatchNorm3d(256, eps=1e-05, momentum=0.1, affine=True, bias=True, track_running_stats=True)
+              )
+              (activation): ReLU()
+            )
+          )
+        )
+        (1): ResStage(
+          (res_blocks): ModuleList(
+            (0): ResBlock(
+              (branch1_conv): Conv3d(8, 32, kernel_size=(1, 1, 1), stride=(np.int64(1), np.int64(1), np.int64(1)), bias=False)
+              (branch1_norm): BatchNorm3d(32, eps=1e-05, momentum=0.1, affine=True, bias=True, track_running_stats=True)
+              (branch2): BottleneckBlock(
+                (conv_a): Conv3d(8, 8, kernel_size=(3, 1, 1), stride=(1, 1, 1), padding=(1, 0, 0), bias=False)
+                (norm_a): BatchNorm3d(8, eps=1e-05, momentum=0.1, affine=True, bias=True, track_running_stats=True)
+                (act_a): ReLU()
+                (conv_b): Conv3d(8, 8, kernel_size=(1, 3, 3), stride=(1, 1, 1), padding=(0, 1, 1), bias=False)
+                (norm_b): BatchNorm3d(8, eps=1e-05, momentum=0.1, affine=True, bias=True, track_running_stats=True)
+                (act_b): ReLU()
+                (conv_c): Conv3d(8, 32, kernel_size=(1, 1, 1), stride=(1, 1, 1), bias=False)
+                (norm_c): BatchNorm3d(32, eps=1e-05, momentum=0.1, affine=True, bias=True, track_running_stats=True)
+              )
+              (activation): ReLU()
+            )
+            (1-2): 2 x ResBlock(
+              (branch2): BottleneckBlock(
+                (conv_a): Conv3d(32, 8, kernel_size=(3, 1, 1), stride=(1, 1, 1), padding=(1, 0, 0), bias=False)
+                (norm_a): BatchNorm3d(8, eps=1e-05, momentum=0.1, affine=True, bias=True, track_running_stats=True)
+                (act_a): ReLU()
+                (conv_b): Conv3d(8, 8, kernel_size=(1, 3, 3), stride=(1, 1, 1), padding=(0, 1, 1), bias=False)
+                (norm_b): BatchNorm3d(8, eps=1e-05, momentum=0.1, affine=True, bias=True, track_running_stats=True)
+                (act_b): ReLU()
+                (conv_c): Conv3d(8, 32, kernel_size=(1, 1, 1), stride=(1, 1, 1), bias=False)
+                (norm_c): BatchNorm3d(32, eps=1e-05, momentum=0.1, affine=True, bias=True, track_running_stats=True)
+              )
+              (activation): ReLU()
+            )
+          )
+        )
+      )
+      (multipathway_fusion): FuseFastToSlow(
+        (conv_fast_to_slow): Conv3d(32, 64, kernel_size=(5, 1, 1), stride=(8, 1, 1), padding=(2, 0, 0), bias=False)
+        (norm): BatchNorm3d(64, eps=1e-05, momentum=0.1, affine=True, bias=True, track_running_stats=True)
+        (activation): ReLU()
+      )
+    )
+    (2): MultiPathWayWithFuse(
+      (multipathway_blocks): ModuleList(
+        (0): ResStage(
+          (res_blocks): ModuleList(
+            (0): ResBlock(
+              (branch1_conv): Conv3d(320, 512, kernel_size=(1, 1, 1), stride=(np.int64(1), np.int64(2), np.int64(2)), bias=False)
+              (branch1_norm): BatchNorm3d(512, eps=1e-05, momentum=0.1, affine=True, bias=True, track_running_stats=True)
+              (branch2): BottleneckBlock(
+                (conv_a): Conv3d(320, 128, kernel_size=(1, 1, 1), stride=(1, 1, 1), bias=False)
+                (norm_a): BatchNorm3d(128, eps=1e-05, momentum=0.1, affine=True, bias=True, track_running_stats=True)
+                (act_a): ReLU()
+                (conv_b): Conv3d(128, 128, kernel_size=(1, 3, 3), stride=(1, 2, 2), padding=(0, 1, 1), bias=False)
+                (norm_b): BatchNorm3d(128, eps=1e-05, momentum=0.1, affine=True, bias=True, track_running_stats=True)
+                (act_b): ReLU()
+                (conv_c): Conv3d(128, 512, kernel_size=(1, 1, 1), stride=(1, 1, 1), bias=False)
+                (norm_c): BatchNorm3d(512, eps=1e-05, momentum=0.1, affine=True, bias=True, track_running_stats=True)
+              )
+              (activation): ReLU()
+            )
+            (1-3): 3 x ResBlock(
+              (branch2): BottleneckBlock(
+                (conv_a): Conv3d(512, 128, kernel_size=(1, 1, 1), stride=(1, 1, 1), bias=False)
+                (norm_a): BatchNorm3d(128, eps=1e-05, momentum=0.1, affine=True, bias=True, track_running_stats=True)
+                (act_a): ReLU()
+                (conv_b): Conv3d(128, 128, kernel_size=(1, 3, 3), stride=(1, 1, 1), padding=(0, 1, 1), bias=False)
+                (norm_b): BatchNorm3d(128, eps=1e-05, momentum=0.1, affine=True, bias=True, track_running_stats=True)
+                (act_b): ReLU()
+                (conv_c): Conv3d(128, 512, kernel_size=(1, 1, 1), stride=(1, 1, 1), bias=False)
+                (norm_c): BatchNorm3d(512, eps=1e-05, momentum=0.1, affine=True, bias=True, track_running_stats=True)
+              )
+              (activation): ReLU()
+            )
+          )
+        )
+        (1): ResStage(
+          (res_blocks): ModuleList(
+            (0): ResBlock(
+              (branch1_conv): Conv3d(32, 64, kernel_size=(1, 1, 1), stride=(np.int64(1), np.int64(2), np.int64(2)), bias=False)
+              (branch1_norm): BatchNorm3d(64, eps=1e-05, momentum=0.1, affine=True, bias=True, track_running_stats=True)
+              (branch2): BottleneckBlock(
+                (conv_a): Conv3d(32, 16, kernel_size=(3, 1, 1), stride=(1, 1, 1), padding=(1, 0, 0), bias=False)
+                (norm_a): BatchNorm3d(16, eps=1e-05, momentum=0.1, affine=True, bias=True, track_running_stats=True)
+                (act_a): ReLU()
+                (conv_b): Conv3d(16, 16, kernel_size=(1, 3, 3), stride=(1, 2, 2), padding=(0, 1, 1), bias=False)
+                (norm_b): BatchNorm3d(16, eps=1e-05, momentum=0.1, affine=True, bias=True, track_running_stats=True)
+                (act_b): ReLU()
+                (conv_c): Conv3d(16, 64, kernel_size=(1, 1, 1), stride=(1, 1, 1), bias=False)
+                (norm_c): BatchNorm3d(64, eps=1e-05, momentum=0.1, affine=True, bias=True, track_running_stats=True)
+              )
+              (activation): ReLU()
+            )
+            (1-3): 3 x ResBlock(
+              (branch2): BottleneckBlock(
+                (conv_a): Conv3d(64, 16, kernel_size=(3, 1, 1), stride=(1, 1, 1), padding=(1, 0, 0), bias=False)
+                (norm_a): BatchNorm3d(16, eps=1e-05, momentum=0.1, affine=True, bias=True, track_running_stats=True)
+                (act_a): ReLU()
+                (conv_b): Conv3d(16, 16, kernel_size=(1, 3, 3), stride=(1, 1, 1), padding=(0, 1, 1), bias=False)
+                (norm_b): BatchNorm3d(16, eps=1e-05, momentum=0.1, affine=True, bias=True, track_running_stats=True)
+                (act_b): ReLU()
+                (conv_c): Conv3d(16, 64, kernel_size=(1, 1, 1), stride=(1, 1, 1), bias=False)
+                (norm_c): BatchNorm3d(64, eps=1e-05, momentum=0.1, affine=True, bias=True, track_running_stats=True)
+              )
+              (activation): ReLU()
+            )
+          )
+        )
+      )
+      (multipathway_fusion): FuseFastToSlow(
+        (conv_fast_to_slow): Conv3d(64, 128, kernel_size=(5, 1, 1), stride=(8, 1, 1), padding=(2, 0, 0), bias=False)
+        (norm): BatchNorm3d(128, eps=1e-05, momentum=0.1, affine=True, bias=True, track_running_stats=True)
+        (activation): ReLU()
+      )
+    )
+    (3): MultiPathWayWithFuse(
+      (multipathway_blocks): ModuleList(
+        (0): ResStage(
+          (res_blocks): ModuleList(
+            (0): ResBlock(
+              (branch1_conv): Conv3d(640, 1024, kernel_size=(1, 1, 1), stride=(np.int64(1), np.int64(2), np.int64(2)), bias=False)
+              (branch1_norm): BatchNorm3d(1024, eps=1e-05, momentum=0.1, affine=True, bias=True, track_running_stats=True)
+              (branch2): BottleneckBlock(
+                (conv_a): Conv3d(640, 256, kernel_size=(3, 1, 1), stride=(1, 1, 1), padding=(1, 0, 0), bias=False)
+                (norm_a): BatchNorm3d(256, eps=1e-05, momentum=0.1, affine=True, bias=True, track_running_stats=True)
+                (act_a): ReLU()
+                (conv_b): Conv3d(256, 256, kernel_size=(1, 3, 3), stride=(1, 2, 2), padding=(0, 1, 1), bias=False)
+                (norm_b): BatchNorm3d(256, eps=1e-05, momentum=0.1, affine=True, bias=True, track_running_stats=True)
+                (act_b): ReLU()
+                (conv_c): Conv3d(256, 1024, kernel_size=(1, 1, 1), stride=(1, 1, 1), bias=False)
+                (norm_c): BatchNorm3d(1024, eps=1e-05, momentum=0.1, affine=True, bias=True, track_running_stats=True)
+              )
+              (activation): ReLU()
+            )
+            (1-5): 5 x ResBlock(
+              (branch2): BottleneckBlock(
+                (conv_a): Conv3d(1024, 256, kernel_size=(3, 1, 1), stride=(1, 1, 1), padding=(1, 0, 0), bias=False)
+                (norm_a): BatchNorm3d(256, eps=1e-05, momentum=0.1, affine=True, bias=True, track_running_stats=True)
+                (act_a): ReLU()
+                (conv_b): Conv3d(256, 256, kernel_size=(1, 3, 3), stride=(1, 1, 1), padding=(0, 1, 1), bias=False)
+                (norm_b): BatchNorm3d(256, eps=1e-05, momentum=0.1, affine=True, bias=True, track_running_stats=True)
+                (act_b): ReLU()
+                (conv_c): Conv3d(256, 1024, kernel_size=(1, 1, 1), stride=(1, 1, 1), bias=False)
+                (norm_c): BatchNorm3d(1024, eps=1e-05, momentum=0.1, affine=True, bias=True, track_running_stats=True)
+              )
+              (activation): ReLU()
+            )
+          )
+        )
+        (1): ResStage(
+          (res_blocks): ModuleList(
+            (0): ResBlock(
+              (branch1_conv): Conv3d(64, 128, kernel_size=(1, 1, 1), stride=(np.int64(1), np.int64(2), np.int64(2)), bias=False)
+              (branch1_norm): BatchNorm3d(128, eps=1e-05, momentum=0.1, affine=True, bias=True, track_running_stats=True)
+              (branch2): BottleneckBlock(
+                (conv_a): Conv3d(64, 32, kernel_size=(3, 1, 1), stride=(1, 1, 1), padding=(1, 0, 0), bias=False)
+                (norm_a): BatchNorm3d(32, eps=1e-05, momentum=0.1, affine=True, bias=True, track_running_stats=True)
+                (act_a): ReLU()
+                (conv_b): Conv3d(32, 32, kernel_size=(1, 3, 3), stride=(1, 2, 2), padding=(0, 1, 1), bias=False)
+                (norm_b): BatchNorm3d(32, eps=1e-05, momentum=0.1, affine=True, bias=True, track_running_stats=True)
+                (act_b): ReLU()
+                (conv_c): Conv3d(32, 128, kernel_size=(1, 1, 1), stride=(1, 1, 1), bias=False)
+                (norm_c): BatchNorm3d(128, eps=1e-05, momentum=0.1, affine=True, bias=True, track_running_stats=True)
+              )
+              (activation): ReLU()
+            )
+            (1-5): 5 x ResBlock(
+              (branch2): BottleneckBlock(
+                (conv_a): Conv3d(128, 32, kernel_size=(3, 1, 1), stride=(1, 1, 1), padding=(1, 0, 0), bias=False)
+                (norm_a): BatchNorm3d(32, eps=1e-05, momentum=0.1, affine=True, bias=True, track_running_stats=True)
+                (act_a): ReLU()
+                (conv_b): Conv3d(32, 32, kernel_size=(1, 3, 3), stride=(1, 1, 1), padding=(0, 1, 1), bias=False)
+                (norm_b): BatchNorm3d(32, eps=1e-05, momentum=0.1, affine=True, bias=True, track_running_stats=True)
+                (act_b): ReLU()
+                (conv_c): Conv3d(32, 128, kernel_size=(1, 1, 1), stride=(1, 1, 1), bias=False)
+                (norm_c): BatchNorm3d(128, eps=1e-05, momentum=0.1, affine=True, bias=True, track_running_stats=True)
+              )
+              (activation): ReLU()
+            )
+          )
+        )
+      )
+      (multipathway_fusion): FuseFastToSlow(
+        (conv_fast_to_slow): Conv3d(128, 256, kernel_size=(5, 1, 1), stride=(8, 1, 1), padding=(2, 0, 0), bias=False)
+        (norm): BatchNorm3d(256, eps=1e-05, momentum=0.1, affine=True, bias=True, track_running_stats=True)
+        (activation): ReLU()
+      )
+    )
+    (4): MultiPathWayWithFuse(
+      (multipathway_blocks): ModuleList(
+        (0): ResStage(
+          (res_blocks): ModuleList(
+            (0): ResBlock(
+              (branch1_conv): Conv3d(1280, 2048, kernel_size=(1, 1, 1), stride=(np.int64(1), np.int64(2), np.int64(2)), bias=False)
+              (branch1_norm): BatchNorm3d(2048, eps=1e-05, momentum=0.1, affine=True, bias=True, track_running_stats=True)
+              (branch2): BottleneckBlock(
+                (conv_a): Conv3d(1280, 512, kernel_size=(3, 1, 1), stride=(1, 1, 1), padding=(1, 0, 0), bias=False)
+                (norm_a): BatchNorm3d(512, eps=1e-05, momentum=0.1, affine=True, bias=True, track_running_stats=True)
+                (act_a): ReLU()
+                (conv_b): Conv3d(512, 512, kernel_size=(1, 3, 3), stride=(1, 2, 2), padding=(0, 1, 1), bias=False)
+                (norm_b): BatchNorm3d(512, eps=1e-05, momentum=0.1, affine=True, bias=True, track_running_stats=True)
+                (act_b): ReLU()
+                (conv_c): Conv3d(512, 2048, kernel_size=(1, 1, 1), stride=(1, 1, 1), bias=False)
+                (norm_c): BatchNorm3d(2048, eps=1e-05, momentum=0.1, affine=True, bias=True, track_running_stats=True)
+              )
+              (activation): ReLU()
+            )
+            (1-2): 2 x ResBlock(
+              (branch2): BottleneckBlock(
+                (conv_a): Conv3d(2048, 512, kernel_size=(3, 1, 1), stride=(1, 1, 1), padding=(1, 0, 0), bias=False)
+                (norm_a): BatchNorm3d(512, eps=1e-05, momentum=0.1, affine=True, bias=True, track_running_stats=True)
+                (act_a): ReLU()
+                (conv_b): Conv3d(512, 512, kernel_size=(1, 3, 3), stride=(1, 1, 1), padding=(0, 1, 1), bias=False)
+                (norm_b): BatchNorm3d(512, eps=1e-05, momentum=0.1, affine=True, bias=True, track_running_stats=True)
+                (act_b): ReLU()
+                (conv_c): Conv3d(512, 2048, kernel_size=(1, 1, 1), stride=(1, 1, 1), bias=False)
+                (norm_c): BatchNorm3d(2048, eps=1e-05, momentum=0.1, affine=True, bias=True, track_running_stats=True)
+              )
+              (activation): ReLU()
+            )
+          )
+        )
+        (1): ResStage(
+          (res_blocks): ModuleList(
+            (0): ResBlock(
+              (branch1_conv): Conv3d(128, 256, kernel_size=(1, 1, 1), stride=(np.int64(1), np.int64(2), np.int64(2)), bias=False)
+              (branch1_norm): BatchNorm3d(256, eps=1e-05, momentum=0.1, affine=True, bias=True, track_running_stats=True)
+              (branch2): BottleneckBlock(
+                (conv_a): Conv3d(128, 64, kernel_size=(3, 1, 1), stride=(1, 1, 1), padding=(1, 0, 0), bias=False)
+                (norm_a): BatchNorm3d(64, eps=1e-05, momentum=0.1, affine=True, bias=True, track_running_stats=True)
+                (act_a): ReLU()
+                (conv_b): Conv3d(64, 64, kernel_size=(1, 3, 3), stride=(1, 2, 2), padding=(0, 1, 1), bias=False)
+                (norm_b): BatchNorm3d(64, eps=1e-05, momentum=0.1, affine=True, bias=True, track_running_stats=True)
+                (act_b): ReLU()
+                (conv_c): Conv3d(64, 256, kernel_size=(1, 1, 1), stride=(1, 1, 1), bias=False)
+                (norm_c): BatchNorm3d(256, eps=1e-05, momentum=0.1, affine=True, bias=True, track_running_stats=True)
+              )
+              (activation): ReLU()
+            )
+            (1-2): 2 x ResBlock(
+              (branch2): BottleneckBlock(
+                (conv_a): Conv3d(256, 64, kernel_size=(3, 1, 1), stride=(1, 1, 1), padding=(1, 0, 0), bias=False)
+                (norm_a): BatchNorm3d(64, eps=1e-05, momentum=0.1, affine=True, bias=True, track_running_stats=True)
+                (act_a): ReLU()
+                (conv_b): Conv3d(64, 64, kernel_size=(1, 3, 3), stride=(1, 1, 1), padding=(0, 1, 1), bias=False)
+                (norm_b): BatchNorm3d(64, eps=1e-05, momentum=0.1, affine=True, bias=True, track_running_stats=True)
+                (act_b): ReLU()
+                (conv_c): Conv3d(64, 256, kernel_size=(1, 1, 1), stride=(1, 1, 1), bias=False)
+                (norm_c): BatchNorm3d(256, eps=1e-05, momentum=0.1, affine=True, bias=True, track_running_stats=True)
+              )
+              (activation): ReLU()
+            )
+          )
+        )
+      )
+      (multipathway_fusion): Identity()
+    )
+    (5): PoolConcatPathway(
+      (pool): ModuleList(
+        (0): AvgPool3d(kernel_size=(4, 7, 7), stride=(1, 1, 1), padding=(0, 0, 0))
+        (1): AvgPool3d(kernel_size=(32, 7, 7), stride=(1, 1, 1), padding=(0, 0, 0))
+      )
+    )
+    (6): ResNetBasicHead(
+      (dropout): Dropout(p=0.5, inplace=False)
+      (proj): Linear(in_features=2304, out_features=12, bias=True)
+      (output_pool): AdaptiveAvgPool3d(output_size=1)
+    )
+  )
+)

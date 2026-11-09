@@ -1,0 +1,35 @@
+{
+  "checkpoint_epoch": 23,
+  "test_acc_multiview": 13.131313131313133,
+  "test_acc_single_view": 12.121212121212121,
+  "test_macro_precision": 7.442182681153269,
+  "test_macro_recall": 13.143382352941178,
+  "test_macro_f1": 8.536810411810412,
+  "test_per_class_acc": {
+    "backhand": 5.88,
+    "backhand2hands": 5.88,
+    "backhand_slice": 0.0,
+    "backhand_volley": 64.71,
+    "flat_service": 25.0,
+    "forehand_flat": 0.0,
+    "forehand_openstands": 12.5,
+    "forehand_slice": 0.0,
+    "forehand_volley": 37.5,
+    "kick_service": 0.0,
+    "slice_service": 0.0,
+    "smash": 6.25
+  },
+  "test_per_class_acc_range": [
+    0.0,
+    64.7
+  ],
+  "n_errors": 172,
+  "err_serve_confusion": 8.13953488372093,
+  "err_slice_volley": 15.116279069767442,
+  "err_smash_serve": 4.651162790697675,
+  "err_other": 72.09302325581395,
+  "val_acc_multiview": 14.646464646464647,
+  "val_acc_single_view": 14.14141414141414,
+  "train_acc_at_best_epoch": 14.82558139534883,
+  "val_acc_at_best_epoch": 17.92929292929292
+}

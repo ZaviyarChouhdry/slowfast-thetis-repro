@@ -1,0 +1,72 @@
+{
+  "seed": 0,
+  "data": {
+    "root": "/content/thetis/VIDEO_RGB",
+    "cache_dir": "/content/frames",
+    "split_csv": "/content/drive/MyDrive/slowfast_thetis_run40/splits.csv",
+    "split_mode": "stratified",
+    "split_ratios": [
+      0.7,
+      0.2,
+      0.1
+    ],
+    "cache_short_side": 256,
+    "clip_window": 64,
+    "num_frames": 32,
+    "sampling_rate": 2,
+    "train_jitter_scales": [
+      256,
+      320
+    ],
+    "train_crop_size": 224,
+    "test_crop_size": 224,
+    "random_flip": true,
+    "mean": [
+      0.45,
+      0.45,
+      0.45
+    ],
+    "std": [
+      0.225,
+      0.225,
+      0.225
+    ],
+    "num_workers": 2
+  },
+  "model": {
+    "arch": "slowfast_r50",
+    "num_classes": 12,
+    "alpha": 8,
+    "beta_inv": 8,
+    "fusion_conv_channel_ratio": 2,
+    "fusion_kernel_size": 5,
+    "dropout": 0.5,
+    "pretrained": false
+  },
+  "solver": {
+    "optimizer": "sgd",
+    "base_lr": 0.1,
+    "reference_batch_size": 64,
+    "momentum": 0.9,
+    "nesterov": true,
+    "weight_decay": 0.0001,
+    "lr_policy": "cosine",
+    "max_epoch": 40,
+    "warmup_epochs": 7,
+    "warmup_start_lr": 0.01
+  },
+  "train": {
+    "batch_size": 16,
+    "amp": true,
+    "eval_period": 1,
+    "early_stop_patience": 0,
+    "precise_bn": true,
+    "precise_bn_batches": 200,
+    "output_dir": "/content/drive/MyDrive/slowfast_thetis_run40"
+  },
+  "test": {
+    "num_clips": 2,
+    "num_crops": 3,
+    "batch_size": 8
+  }
+}
