@@ -1,0 +1,65 @@
+# SlowFast 4x16, ResNet-50, trained from scratch on THETIS RGB.
+# Reproduction of Hovad et al. (2024), arXiv:2402.02545.
+#
+# Values marked [paper] are stated in the paper.
+# Values marked [pyslowfast] are copied from PySlowFast's
+# configs/Kinetics/SLOWFAST_4x16_R50.yaml, the framework the paper says it used.
+# The paper's 196 training epochs equals MAX_EPOCH in that file, which is the
+# main evidence that the authors kept PySlowFast's defaults.
+# Values marked [ours] are our choices where neither source applies.
+
+seed: 0
+
+data:
+  root: /kaggle/input                    # searched recursively for the 12 class folders
+  cache_dir: /tmp/thetis_frames           # JPEG frame cache (kept out of Kaggle output)
+  split_csv: /kaggle/working/splits.csv
+  split_mode: stratified        # [paper] 70/20/10 random split. "player" = subject-disjoint (extra experiment)
+  split_ratios: [0.7, 0.2, 0.1] # [paper]
+  cache_short_side: 256         # [paper] frames stored with short side 256
+  clip_window: 64               # [paper] 64-frame clips
+  num_frames: 32                # [pyslowfast] fast pathway frames (64 / sampling_rate)
+  sampling_rate: 2              # [pyslowfast]
+  train_jitter_scales: [256, 320] # [pyslowfast] random short-side scale
+  train_crop_size: 224          # [paper][pyslowfast]
+  test_crop_size: 224           # [paper] (PySlowFast default is 256; paper says 224)
+  random_flip: true             # [pyslowfast] paper only says "data augmentation"
+  mean: [0.45, 0.45, 0.45]      # [pyslowfast]
+  std: [0.225, 0.225, 0.225]    # [pyslowfast]
+  num_workers: 4                # [ours] Kaggle has 4 CPU cores
+
+model:
+  arch: slowfast_r50
+  num_classes: 12               # [paper]
+  alpha: 8                      # [paper][pyslowfast] slow:fast frame ratio -> slow sees 4 frames
+  beta_inv: 8                   # [paper][pyslowfast] fast pathway has 1/8 the channels
+  fusion_conv_channel_ratio: 2  # [pyslowfast]
+  fusion_kernel_size: 5         # [paper][pyslowfast] lateral connection 5x1x1
+  dropout: 0.5                  # [pyslowfast] paper says dropout, no value
+  pretrained: false             # [paper] trained from scratch
+
+solver:
+  optimizer: sgd                # [pyslowfast] not reported in paper
+  base_lr: 0.1                  # [pyslowfast] for reference_batch_size below
+  reference_batch_size: 64      # [pyslowfast] lr is scaled linearly to our batch size
+  momentum: 0.9                 # [pyslowfast]
+  nesterov: true                # [pyslowfast] default SOLVER.NESTEROV
+  weight_decay: 1.0e-4          # [pyslowfast] paper says weight decay, no value
+  lr_policy: cosine             # [pyslowfast]
+  max_epoch: 196                # [paper][pyslowfast]
+  warmup_epochs: 34             # [pyslowfast]
+  warmup_start_lr: 0.01         # [pyslowfast] also scaled linearly
+
+train:
+  batch_size: 16                # [ours] largest that fits a 16 GB GPU with AMP
+  amp: true                     # [ours] mixed precision for speed/memory
+  eval_period: 1                # [ours] validate every epoch for curves + early stopping
+  early_stop_patience: 0        # 0 = run all epochs and keep the best-val checkpoint (matches paper's "min val error")
+  precise_bn: true              # [pyslowfast] BN.USE_PRECISE_STATS
+  precise_bn_batches: 200       # [pyslowfast]
+  output_dir: /kaggle/working/runs/slowfast_4x16_r50
+
+test:
+  num_clips: 2                  # [paper] 2 temporal clips
+  num_crops: 3                  # [paper] 3 spatial crops
+  batch_size: 8

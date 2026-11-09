@@ -1,0 +1,11 @@
+# Python 3.10+ ; also needs the ffmpeg / ffprobe binaries on PATH (preinstalled on Kaggle and Colab)
+torch>=2.1
+torchvision>=0.16
+pytorchvideo==0.1.5   # only pytorchvideo.models is used, so newer torchvision is fine
+fvcore>=0.1.5         # precise BN + FLOP count
+numpy
+pandas
+scikit-learn
+matplotlib
+pillow
+pyyaml
